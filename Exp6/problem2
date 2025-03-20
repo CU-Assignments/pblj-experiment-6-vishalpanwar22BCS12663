@@ -1,0 +1,130 @@
+import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    // Constructor
+    public Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Salary: " + salary;
+    }
+}
+
+public class EmployeeManager {
+    private static List<Employee> employees = new ArrayList<>();
+
+    // Method to add an employee
+    public static void addEmployee(int id, String name, double salary) {
+        Employee employee = new Employee(id, name, salary);
+        employees.add(employee);
+        System.out.println("Employee added: " + employee);
+    }
+
+    // Method to update an employee
+    public static void updateEmployee(int id, String name, double salary) {
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employee.setName(name);
+                employee.setSalary(salary);
+                System.out.println("Employee updated: " + employee);
+                return;
+            }
+        }
+        System.out.println("Employee with ID " + id + " not found.");
+    }
+
+    // Method to remove an employee
+    public static void removeEmployee(int id) {
+        Employee employeeToRemove = null;
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employeeToRemove = employee;
+                break;
+            }
+        }
+        if (employeeToRemove != null) {
+            employees.remove(employeeToRemove);
+            System.out.println("Employee removed: " + employeeToRemove);
+        } else {
+            System.out.println("Employee with ID " + id + " not found.");
+        }
+    }
+
+    // Method to search for an employee by ID
+    public static void searchEmployee(int id) {
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                System.out.println("Employee found: " + employee);
+                return;
+            }
+        }
+        System.out.println("Employee with ID " + id + " not found.");
+    }
+
+    // Method to display all employees
+    public static void displayAllEmployees() {
+        if (employees.isEmpty()) {
+            System.out.println("No employees in the list.");
+        } else {
+            System.out.println("Employee List:");
+            for (Employee employee : employees) {
+                System.out.println(employee);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Adding employees
+        addEmployee(1, "Alice", 50000);
+        addEmployee(2, "Bob", 60000);
+        addEmployee(3, "Charlie", 55000);
+
+        // Display all employees
+        displayAllEmployees();
+
+        // Update an employee
+        updateEmployee(2, "Robert", 65000);
+
+        // Search for an employee
+        searchEmployee(1);
+
+        // Remove an employee
+        removeEmployee(3);
+
+        // Display all employees after removal
+        displayAllEmployees();
+    }
+}
