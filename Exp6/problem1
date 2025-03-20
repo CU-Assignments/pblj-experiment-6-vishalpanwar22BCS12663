@@ -1,0 +1,41 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Student {
+    String name;
+    double marks;
+
+    // Constructor
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+}
+
+public class StudentStream {
+    public static void main(String[] args) {
+        // Create a list of students
+        List<Student> students = Arrays.asList(
+            new Student("John", 80),
+            new Student("Jane", 65),
+            new Student("Tom", 90),
+            new Student("Alice", 78),
+            new Student("Bob", 88)
+        );
+
+        // Use stream to filter students scoring above 75%, sort by marks, and display names
+        students.stream()
+            .filter(student -> student.getMarks() > 75)
+            .sorted(Comparator.comparingDouble(Student::getMarks).reversed()) // Sort in descending order
+            .forEach(student -> System.out.println(student.getName()));
+    }
+}
